@@ -25,4 +25,4 @@ plt.legend()
 plt.show()
 ```
 
-![ellipse fit](imgs/ellipse_fit.py)
+![ellipse fit](./imgs/ellipse_fit.png)
