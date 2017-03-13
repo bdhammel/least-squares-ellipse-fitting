@@ -10,9 +10,6 @@ from matplotlib.patches import Ellipse
     __email__ = "bdhammel@gmail.com"
     __status__ = "Development"
 
-    Explanation:
-        http://www.thebrokendesk.com/post/least-squares-fitting-of-ellipses/
-
     Requirements: 
         Python 2.X
         numpy
@@ -41,8 +38,8 @@ def fit_ellipse(data):
         coef (list): list of the coefficients describing an ellipse
            [a,b,c,d,f,g] corresponding to ax**2+2bxy+cy**2+2dx+2fy+g
     """
-    x = numpy.array(map(float, data[0]))
-    y = numpy.array(map(float, data[1]))
+    x = numpy.array(list(map(float, data[0])))
+    y = numpy.array(list(map(float, data[1])))
 
     #Quadratic part of design matrix [eqn. 15] from (*)
     D1 = numpy.mat(numpy.vstack([x**2, x*y, y**2])).T
@@ -143,21 +140,3 @@ def make_ellipse(center=[1,1], width=1, height=.6, phi=3.14/5):
 
     return [ellipse_x, ellipse_y]
 
-def example():
-    data = make_ellipse()
-    coef = fit_ellipse(data)
-    center, width, height, phi = get_parameters(coef)
-
-    plt.close('all')
-    fig = plt.figure(figsize=(6,6))
-    ax = fig.add_subplot(111)
-    ax.axis('equal')
-    ax.plot(data[0], data[1], 'r', label='test data', zorder=1)
-    ellipse = Ellipse(xy=center, width=2*width, height=2*height, angle=phi*360,
-                   edgecolor='b', fc='None', lw=2, label='Fit', zorder = 2)
-    ax.add_patch(ellipse)
-    plt.legend()
-    plt.show()
-
-if __name__ == "__main__":
-    example()
