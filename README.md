@@ -1,4 +1,4 @@
-# Least Squares fitting of ellipses python routine 
+# Least Squares fitting of ellipses, python routine 
 
 based on the  publication 
 [Halir, R., Flusser, J.: 'Numerically Stable Direct Least Squares 
