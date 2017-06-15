@@ -7,9 +7,13 @@ based on the  publication
 ## Example execution
 
 ```python
-data = make_ellipse()
-coef = fit_ellipse(data)
-center, width, height, phi = get_parameters(coef)
+import ellipses as el
+
+data = el.make_test_ellipse()
+
+lsqe = el.LSqEllipse()
+lsqe.fit(data)
+center, width, height, phi = lsqe.parameters()
 
 plt.close('all')
 fig = plt.figure(figsize=(6,6))
