@@ -1,8 +1,7 @@
 # Least Squares fitting of ellipses, python routine 
 
 based on the  publication 
-[Halir, R., Flusser, J.: 'Numerically Stable Direct Least Squares 
-            Fitting of Ellipses'](http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=42331A070FC446475DCEBA7523B60898?doi=10.1.1.1.7559&rep=rep1&type=pdf)
+[R. Halir and J. Flusser, “Numerically stable direct least squares fitting of ellipses,” 1998.](http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=42331A070FC446475DCEBA7523B60898?doi=10.1.1.1.7559&rep=rep1&type=pdf)
 
 ## Example execution
 
