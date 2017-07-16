@@ -8,6 +8,8 @@ Based on the  publication
 ```python
 import ellipses as el
 import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.patches import Ellipse
 
 data = el.make_test_ellipse()
 
