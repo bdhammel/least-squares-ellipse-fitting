@@ -2,7 +2,7 @@
 
 based on the  publication 
 [Halir, R., Flusser, J.: 'Numerically Stable Direct Least Squares 
-            Fitting of Ellipses'](http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=42331A070FC446475DCEBA7523B60898?doi=10.1.1.1.7559&rep=rep1&type=pdf)
+            Fitting of Ellipses'](./media/WSCG98.pdf)
 
 ## Example execution
 
@@ -29,4 +29,4 @@ plt.legend()
 plt.show()
 ```
 
-![ellipse fit](./imgs/ellipse_fit.png)
+![ellipse fit](./media/ellipse_fit.png)
