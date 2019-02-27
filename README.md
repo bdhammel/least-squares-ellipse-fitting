@@ -1,3 +1,8 @@
+
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2578663.svg)](https://doi.org/10.5281/zenodo.2578663)
+
+
 # Least Squares fitting of ellipses, python routine 
 
 based on the  publication 
@@ -33,3 +38,17 @@ plt.show()
 ```
 
 ![ellipse fit](./media/ellipse_fit.png)
+
+
+**Cite this work**
+```
+@misc{https://doi.org/10.5281/zenodo.2578663,
+  doi = {10.5281/zenodo.2578663},
+  url = {https://zenodo.org/record/2578663},
+  author = {Hammel,  Ben and Sullivan-Molina,  Nick},
+  title = {bdhammel/least-squares-ellipse-fitting: Initial release},
+  publisher = {Zenodo},
+  year = {2019}
+}
+```
+B. Hammel and N. Sullivan-Molina. bdhammel/least-squares-ellipse-fitting: Initial release, 2019.
