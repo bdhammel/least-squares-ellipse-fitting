@@ -2,6 +2,8 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2578663.svg)](https://doi.org/10.5281/zenodo.2578663)
 
+[![bdhammel](https://circleci.com/gh/bdhammel/least-squares-ellipse-fitting.svg?style=shield)](https://app.circleci.com/pipelines/github/bdhammel/least-squares-ellipse-fitting)
+
 
 # Least Squares fitting of ellipses, python routine 
 
@@ -17,17 +19,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Ellipse
 
-data = el.make_test_ellipse()
+X1, X2 = el.make_test_ellipse()
 
-lsqe = el.LSqEllipse()
-lsqe.fit(data)
-center, width, height, phi = lsqe.parameters()
+X = np.array(list(zip(X1, X2)))
+reg = LsqEllipse().fit(X)
+center, width, height, phi = reg.as_parameters()
 
 plt.close('all')
 fig = plt.figure(figsize=(6,6))
 ax = fig.add_subplot(111)
 ax.axis('equal')
-ax.plot(data[0], data[1], 'ro', label='test data', zorder=1)
+ax.plot(X1, X2, 'ro', label='test data', zorder=1)
 
 ellipse = Ellipse(xy=center, width=2*width, height=2*height, angle=np.rad2deg(phi),
                edgecolor='b', fc='None', lw=2, label='Fit', zorder = 2)
