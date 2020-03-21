@@ -17,10 +17,11 @@
     (*) Halir, R., Flusser, J.: 'Numerically Stable Direct Least Squares
         Fitting of Ellipses'
     (**) http://mathworld.wolfram.com/Ellipse.html
-    (***) White, A. McHale, B. 'Faraday rotation data analysis with least-squares
+    (***) White, A. McHale, B. 'Faraday rotation data analysis with least-squares  # noqa: E501
         elliptical fitting'
 """
 import numpy as np
+import numpy.linalg as la
 
 
 class LsqEllipse:
@@ -83,23 +84,23 @@ class LsqEllipse:
         X = self._check_data(X)
 
         # extract x-y pairs
-        x, y, *_ = X.T
+        x, y = X.T
 
         # Quadratic part of design matrix [eqn. 15] from (*)
-        D1 = np.mat(np.vstack([x**2, x * y, y**2])).T
+        D1 = np.vstack([x**2, x * y, y**2]).T
         # Linear part of design matrix [eqn. 16] from (*)
-        D2 = np.mat(np.vstack([x, y, np.ones_like(x)])).T
+        D2 = np.vstack([x, y, np.ones_like(x)]).T
 
         # Forming scatter matrix [eqn. 17] from (*)
-        S1 = D1.T * D1
-        S2 = D1.T * D2
-        S3 = D2.T * D2
+        S1 = D1.T @ D1
+        S2 = D1.T @ D2
+        S3 = D2.T @ D2
 
         # Constraint matrix [eqn. 18]
-        C1 = np.mat('0. 0. 2.; 0. -1. 0.; 2. 0. 0.')
+        C1 = np.array([[0., 0., 2.], [0., -1., 0.], [2., 0., 0.]])
 
         # Reduced scatter matrix [eqn. 29]
-        M = C1.I * (S1 - S2 * S3.I * S2.T)
+        M = la.inv(C1) @ (S1 - S2 @ la.inv(S3) @ S2.T)
 
         # M*|a b c >=l|a b c >. Find eigenvalues and eigenvectors from this
         # equation [eqn. 28]
@@ -110,10 +111,10 @@ class LsqEllipse:
             4*np.multiply(eigvec[0, :], eigvec[2, :])
             - np.power(eigvec[1, :], 2)
         )
-        a1 = eigvec[:, np.nonzero(cond.A > 0)[1]]
+        a1 = eigvec[:, np.nonzero(cond > 0)[0]]
 
         # |d f g> = -S3^(-1) * S2^(T)*|a b c> [eqn. 24]
-        a2 = -S3.I * S2.T * a1
+        a2 = la.inv(-S3) @ S2.T @ a1
 
         # Eigenvectors |a b c d f g>
         # list of the coefficients describing an ellipse [a,b,c,d,f,g]
