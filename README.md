@@ -1,7 +1,4 @@
-
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2578663.svg)](https://doi.org/10.5281/zenodo.2578663)
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3723294.svg)](https://doi.org/10.5281/zenodo.3723294)
 [![bdhammel](https://circleci.com/gh/bdhammel/least-squares-ellipse-fitting.svg?style=shield)](https://app.circleci.com/pipelines/github/bdhammel/least-squares-ellipse-fitting)
 
 
@@ -45,8 +42,7 @@ plt.show()
 **Cite this work**
 ```
 @software{ben_hammel_2020_3723294,
-  author       = {Ben Hammel and
-                  Nick Sullivan-Molina},
+  author       = {Ben Hammel and Nick Sullivan-Molina},
   title        = {bdhammel/least-squares-ellipse-fitting: v2.0.0},
   month        = mar,
   year         = 2020,
