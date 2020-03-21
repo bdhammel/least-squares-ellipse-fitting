@@ -16,4 +16,4 @@ jobs:
           command: |
             . venv/bin/activate
             flake8 --exclude=venv* --statistics
-            pytest -v --cov=calculator
+            pytest -v --cov=ellipse
