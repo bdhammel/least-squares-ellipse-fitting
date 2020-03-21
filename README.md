@@ -44,13 +44,16 @@ plt.show()
 
 **Cite this work**
 ```
-@misc{https://doi.org/10.5281/zenodo.2578663,
-  doi = {10.5281/zenodo.2578663},
-  url = {https://zenodo.org/record/2578663},
-  author = {Hammel,  Ben and Sullivan-Molina,  Nick},
-  title = {bdhammel/least-squares-ellipse-fitting: Initial release},
-  publisher = {Zenodo},
-  year = {2019}
+@software{ben_hammel_2020_3723294,
+  author       = {Ben Hammel and
+                  Nick Sullivan-Molina},
+  title        = {bdhammel/least-squares-ellipse-fitting: v2.0.0},
+  month        = mar,
+  year         = 2020,
+  publisher    = {Zenodo},
+  version      = {v2.0.0},
+  doi          = {10.5281/zenodo.3723294},
+  url          = {https://doi.org/10.5281/zenodo.3723294}
 }
 ```
-B. Hammel and N. Sullivan-Molina. bdhammel/least-squares-ellipse-fitting: Initial release, 2019.
+Ben Hammel, & Nick Sullivan-Molina. (2020, March 21). bdhammel/least-squares-ellipse-fitting: v2.0.0 (Version v2.0.0). Zenodo. http://doi.org/10.5281/zenodo.3723294
