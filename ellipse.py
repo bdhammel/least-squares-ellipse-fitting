@@ -1,25 +1,3 @@
-"""Demonstration of least-squares fitting of ellipses
-
-    __author__ = "Ben Hammel, Nick Sullivan-Molina"
-    __credits__ = ["Ben Hammel", "Nick Sullivan-Molina"]
-    __maintainer__ = "Ben Hammel"
-    __email__ = "bdhammel@gmail.com"
-    __status__ = "Development"
-
-    Requirements
-    ------------
-    Python 2.X or 3.X
-    numpy
-    matplotlib
-
-    References
-    ----------
-    (*) Halir, R., Flusser, J.: 'Numerically Stable Direct Least Squares
-        Fitting of Ellipses'
-    (**) http://mathworld.wolfram.com/Ellipse.html
-    (***) White, A. McHale, B. 'Faraday rotation data analysis with least-squares  # noqa: E501
-        elliptical fitting'
-"""
 import numpy as np
 import numpy.linalg as la
 
