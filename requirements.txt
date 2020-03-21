@@ -1,1 +1,4 @@
 numpy==1.18.2
+pytest==5.4.1
+pytest-cov==2.8.1
+flake8==3.7.9
