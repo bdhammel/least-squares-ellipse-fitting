@@ -1,6 +1,8 @@
 import numpy as np
 import numpy.linalg as la
 
+__version__ = '2.0.0'
+
 
 class LsqEllipse:
     """Lest Squares fitting of Elliptical data
