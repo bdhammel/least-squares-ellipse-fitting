@@ -8,6 +8,14 @@ based on the  publication
 [Halir, R., Flusser, J.: 'Numerically Stable Direct Least Squares 
             Fitting of Ellipses'](./media/WSCG98.pdf)
 
+## Install 
+
+```bash
+pip install lsq-ellipse
+```
+
+[https://pypi.org/project/lsq-ellipse/](https://pypi.org/project/lsq-ellipse/)
+
 ## Example execution
 
 ```python
