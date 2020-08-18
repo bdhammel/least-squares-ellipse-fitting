@@ -19,7 +19,7 @@ pip install lsq-ellipse
 ## Example execution
 
 ```python
-import ellipses as el
+import ellipse as el
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Ellipse
