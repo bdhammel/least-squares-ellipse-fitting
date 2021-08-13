@@ -1,7 +1,7 @@
 import numpy as np
 import numpy.linalg as la
 
-__version__ = '2.0.0'
+__version__ = '2.0.2'
 
 
 class LsqEllipse:
@@ -67,7 +67,9 @@ class LsqEllipse:
         x, y = X.T
 
         # Quadratic part of design matrix [eqn. 15] from (*)
-        D1 = np.vstack([x**2, x * y, y**2]).T
+        
+        D1 = np.vstack([x*x, x * y, y*y]).T     
+        
         # Linear part of design matrix [eqn. 16] from (*)
         D2 = np.vstack([x, y, np.ones_like(x)]).T
 
@@ -134,34 +136,59 @@ class LsqEllipse:
         # a*x^2 + 2*b*x*y + c*y^2 + 2*d*x + 2*f*y + g = 0
         # [eqn. 15) from (**) or (***)
         a = self.coefficients[0]
-        b = self.coefficients[1] / 2.
+        b = self.coefficients[1] / 2.0
         c = self.coefficients[2]
-        d = self.coefficients[3] / 2.
-        f = self.coefficients[4] / 2.
+        d = self.coefficients[3] / 2.0
+        f = self.coefficients[4] / 2.0
         g = self.coefficients[5]
-
+        
         # Finding center of ellipse [eqn.19 and 20] from (**)
-        x0 = (c*d - b*f) / (b**2. - a*c)
-        y0 = (a*f - b*d) / (b**2. - a*c)
+        x0 = (c*d - b*f) / (b*b - a*c)          
+        y0 = (a*f - b*d) / (b*b - a*c)          
         center = [x0, y0]
 
         # Find the semi-axes lengths [eqn. 21 and 22] from (**)
-        numerator = 2 * (a*f**2 + c*d**2 + g*b**2 - 2*b*d*f - a*c*g)
-        denominator1 = (b * b - a * c) * (
-            (c - a) * np.sqrt(1 + 4*b*b / ((a - c)*(a - c))) - (c + a)
-        )
-        denominator2 = (b*b - a*c) * (
-            (a - c) * np.sqrt(1 + 4*b*b / ((a - c) * (a - c))) - (c + a)
-        )
-        width = np.sqrt(numerator / denominator1)
+        numerator = 2.0 * (a*f*f + c*d*d + g*b*b - 2.0*b*d*f - a*c*g)   
+        
+        denominator1 = (b*b - a*c) * (np.sqrt((a - c)*(a - c) + 4.0*b*b) - (a + c))                 
+        
+        denominator2 = (b*b - a*c) * (-np.sqrt((a - c)*(a - c) + 4.0*b*b) - (a + c))              
+        
+        width  = np.sqrt(numerator / denominator1)
         height = np.sqrt(numerator / denominator2)
 
         # Angle of counterclockwise rotation of major-axis of ellipse to x-axis
         # [eqn. 23] from (**) or [eqn. 26] from (***).
-        phi = .5 * np.arctan((2.*b) / (a - c))
+
+        if b==0 : 
+            phi=0
+        else : 
+            phi = 0.5 * np.arctan((2.0*b) / (a - c))
+        if (a>c):                                       
+            phi = phi + 0.5*np.pi
+      
 
         return center, width, height, phi
+        
+    # Add a function that shows the ellipse coefficients
+    def ellipse_coeff(self):
+        """
+        List of the coefficients describing the fitted ellipse
 
+        Returns
+        -------
+        [a,b,c,d,f,g] corresponding to ax**2 + 2bxy + cy**2 + 2dx + 2fy + g
+        """
+        a = self.coefficients[0]
+        b = self.coefficients[1] / 2.0
+        c = self.coefficients[2]
+        d = self.coefficients[3] / 2.0
+        f = self.coefficients[4] / 2.0
+        g = self.coefficients[5]
+        
+        return a, b, c, d, f, g
+        
+        
     def return_fit(self, n_points=None, t=None):
         """Return the X, Y values of the predicted ellipse
 
@@ -193,11 +220,7 @@ class LsqEllipse:
 
         center, width, height, phi = self.as_parameters()
 
-        x = (center[0]
-             + width * np.cos(t) * np.cos(phi)
-             - height * np.sin(t) * np.sin(phi))
-        y = (center[1]
-             + width * np.cos(t) * np.sin(phi)
-             + height * np.sin(t) * np.cos(phi))
+        x = (center[0] + width * np.cos(t) * np.cos(phi) - height * np.sin(t) * np.sin(phi))
+        y = (center[1] + width * np.cos(t) * np.sin(phi) + height * np.sin(t) * np.cos(phi))
 
         return np.c_[x, y]
