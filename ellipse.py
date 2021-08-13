@@ -220,7 +220,11 @@ class LsqEllipse:
 
         center, width, height, phi = self.as_parameters()
 
-        x = (center[0] + width * np.cos(t) * np.cos(phi) - height * np.sin(t) * np.sin(phi))
-        y = (center[1] + width * np.cos(t) * np.sin(phi) + height * np.sin(t) * np.cos(phi))
+        x = (center[0] 
+             + width * np.cos(t) * np.cos(phi) 
+             - height * np.sin(t) * np.sin(phi))
+        y = (center[1] 
+             + width * np.cos(t) * np.sin(phi) 
+             + height * np.sin(t) * np.cos(phi))
 
         return np.c_[x, y]
