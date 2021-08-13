@@ -161,7 +161,7 @@ class LsqEllipse:
         # [eqn. 23] from (**) or [eqn. 26] from (***).
 
         if b==0 : 
-            phi=0
+            phi=0 
         else : 
             phi = 0.5 * np.arctan((2.0*b) / (a - c))
         if (a>c):                                       
