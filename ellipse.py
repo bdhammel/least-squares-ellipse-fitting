@@ -1,7 +1,7 @@
 import numpy as np
 import numpy.linalg as la
 
-__version__ = '2.0.2'
+__version__ = '3.0.1'
 
 
 class LsqEllipse:
@@ -101,6 +101,9 @@ class LsqEllipse:
         # Eigenvectors |a b c d f g>
         # list of the coefficients describing an ellipse [a,b,c,d,f,g]
         # corresponding to ax**2 + 2bxy + cy**2 + 2dx + 2fy + g
+        if (a1[0] < 0):                                                     #change the signum in case < 0
+            a1 = -a1
+            a2 = -a2
         self.coef_ = np.vstack([a1, a2])
 
         return self
@@ -160,12 +163,20 @@ class LsqEllipse:
         # Angle of counterclockwise rotation of major-axis of ellipse to x-axis
         # [eqn. 23] from (**) or [eqn. 26] from (***).
 
-        if b==0 : 
-            phi=0 
-        else : 
-            phi = 0.5 * np.arctan((2.0*b) / (a - c))
-        if (a>c):                                       
-            phi = phi + 0.5*np.pi
+        if (b == 0 and a < c):                  #calculate with the b == 0 condition
+            phi = 0.0
+
+        if (b == 0 and a > c):
+            phi = 0.5 * np.pi
+
+        if (b != 0 and a != c):                 #calculate with the a > c condition
+            if (a < c):
+                phi = 0.5 * np.arctan((2.0 * b) / (a - c))
+            if (a > c):
+                phi = 0.5 * np.pi + 0.5 * np.arctan((2.0 * b) / (a - c))
+
+        if (a == c):                            # add the case of a circle, "undefined" is the right value
+            phi = 0.0
       
 
         return center, width, height, phi
