@@ -1,0 +1,29 @@
+# Define hooks for code formations
+# Will be applied on any updated commit files if a user has installed and linked commit hook
+
+default_language_version:
+  python: python3.8
+
+exclude: '.bumpversion.cfg'
+default_stages: [push]
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-case-conflict
+      - id: check-toml
+      - id: check-docstring-first
+
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.9.3
+    hooks:
+      - id: isort
+        name: Sort imports
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 3.9.2
+    hooks:
+      - id: flake8
+        name: PEP8
