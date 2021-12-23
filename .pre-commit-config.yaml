@@ -4,7 +4,7 @@
 default_language_version:
   python: python3.8
 
-exclude: '.bumpversion.cfg'
+exclude: 'setup.cfg'
 default_stages: [push]
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
