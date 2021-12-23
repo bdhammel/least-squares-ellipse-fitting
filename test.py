@@ -8,7 +8,7 @@ from ellipse import LsqEllipse
 def make_dataset(center, width, height, phi, n_points):
     """Generate Elliptical data with noise"""
 
-    t = np.linspace(0, 2 * np.pi, n_points)
+    t = np.linspace(0, 1.8 * np.pi, n_points)
 
     x = (center[0]
          + width * np.cos(t) * np.cos(phi)
@@ -74,7 +74,7 @@ def test_less_than_minimum_data_points_raises_err():
         elp.fit(X)
 
 
-@pytest.mark.parametrize('n_points', [5, 100])
+@pytest.mark.parametrize('n_points', [6, 100])
 def test_return_fit_returns_correct_ellipse(n_points):
     X = make_dataset(
         center=[0, 0],
@@ -85,6 +85,48 @@ def test_return_fit_returns_correct_ellipse(n_points):
     )
 
     elp = LsqEllipse().fit(X)
-    x = elp.return_fit(n_points)
+    t = np.linspace(0, 1.8 * np.pi, n_points)
+    x = elp.return_fit(n_points, t=t)
 
     nptest.assert_array_almost_equal(x, X)
+
+
+def test_if_perfect_circle():
+    X = make_dataset(
+        center=[0, 0],
+        width=1,
+        height=1,
+        phi=0,
+        n_points=50
+    )
+
+    elp = LsqEllipse().fit(X)
+    _center, _width, _height, _phi = elp.as_parameters()
+
+    nptest.assert_array_almost_equal(_center, [0, 0])
+    nptest.assert_almost_equal(_width, 1)
+    nptest.assert_almost_equal(_height, 1)
+    # nptest.assert_almost_equal(_phi, 0)
+
+
+@pytest.mark.xfail()
+def test_if_no_ellipse_found():
+    """
+    This data causes a divide by zero error
+    TODO: add in check of this
+    """
+    X = make_dataset(
+        center=[0, 0],
+        width=1,
+        height=1,
+        phi=0,
+        n_points=5
+    )
+
+    elp = LsqEllipse().fit(X)
+    _center, _width, _height, _phi = elp.as_parameters()
+
+    nptest.assert_array_almost_equal(_center, [0, 0])
+    nptest.assert_almost_equal(_width, 1)
+    nptest.assert_almost_equal(_height, 1)
+    # nptest.assert_almost_equal(_phi, 0)
