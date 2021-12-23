@@ -4,3 +4,4 @@ pytest-cov
 flake8
 bump2version
 pre-commit
+matplotlib
