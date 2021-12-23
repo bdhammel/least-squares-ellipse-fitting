@@ -1,7 +1,8 @@
-import numpy as np
-from ellipse import LsqEllipse
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.patches import Ellipse
+
+from ellipse import LsqEllipse
 
 
 def make_test_ellipse(center=[1, 1], width=1, height=.6, phi=3.14/5):

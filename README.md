@@ -2,13 +2,13 @@
 [![bdhammel](https://circleci.com/gh/bdhammel/least-squares-ellipse-fitting.svg?style=shield)](https://app.circleci.com/pipelines/github/bdhammel/least-squares-ellipse-fitting)
 
 
-# Least Squares fitting of ellipses, python routine 
+# Least Squares fitting of ellipses, python routine
 
-based on the  publication 
-[Halir, R., Flusser, J.: 'Numerically Stable Direct Least Squares 
+based on the  publication
+[Halir, R., Flusser, J.: 'Numerically Stable Direct Least Squares
             Fitting of Ellipses'](./media/WSCG98.pdf)
 
-## Install 
+## Install
 
 ```bash
 pip install lsq-ellipse
