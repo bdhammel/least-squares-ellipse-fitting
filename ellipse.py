@@ -1,5 +1,9 @@
+import logging
+
 import numpy as np
 import numpy.linalg as la
+
+logger = logging.getLogger(__name__)
 
 __version__ = '2.1.0-dev'
 
@@ -38,7 +42,7 @@ class LsqEllipse:
     >>> print(f"height: {height:.1f}")
     height: 0.5
     >>> print(f"phi: {phi:.1f}")
-    phi: -0.0
+    phi: 0.0
     """
     ALLOWED_FEATURES = 2
 
@@ -130,15 +134,14 @@ class LsqEllipse:
 
         Returns
         _______
-        center : list
-            [x0, y0]
+        center : tuple
+            (x0, y0)
         width : float
-            Semimajor axis
+            Total length (diameter) of horizontal axis.
         height : float
-            Semiminor axis
+            Total length (diameter) of vertical axis.
         phi : float
-            The counterclockwise angle of rotation from the x-axis to the major
-            axis of the ellipse
+            The counterclockwise angle [radians] of rotation from the x-axis to the semimajor axis
         """
 
         # Eigenvectors are the coefficients of an ellipse in general form
@@ -157,22 +160,31 @@ class LsqEllipse:
         # Finding center of ellipse [eqn.19 and 20] from (**)
         x0 = (c*d - b*f) / (b**2 - a*c)
         y0 = (a*f - b*d) / (b**2 - a*c)
-        center = [x0, y0]
+        center = (x0, y0)
 
         # Find the semi-axes lengths [eqn. 21 and 22] from (**)
         numerator = 2 * (a*f**2 + c*d**2 + g*b**2 - 2*b*d*f - a*c*g)
-        denominator1 = (b*b - a*c) * (
-            (c-a) * np.sqrt(1+4*b**2 / ((a-c)*(a-c))) - (c+a)
-        )
-        denominator2 = (b*b - a*c) * (
-            (a-c) * np.sqrt(1+4*b**2 / ((a-c) * (a-c))) - (c+a)
-        )
+        denominator1 = (b**2 - a*c) * ( np.sqrt((a-c)**2+4*b**2) - (c+a))  # noqa: E201
+        denominator2 = (b**2 - a*c) * (-np.sqrt((a-c)**2+4*b**2) - (c+a))
         width = np.sqrt(numerator / denominator1)
         height = np.sqrt(numerator / denominator2)
 
         # Angle of counterclockwise rotation of major-axis of ellipse to x-axis
-        # [eqn. 23] from (**) or [eqn. 26] from (***).
-        phi = .5 * np.arctan((2.*b) / (a-c))
+        # [eqn. 23] from (**)
+        # w/ trig identity eqn 9 form (***)
+        if b == 0 and a < c:
+            phi = 0.0
+        elif b == 0 and a > c:
+            phi = np.pi/2
+        elif b != 0 and a < c:
+            phi = 0.5 * np.arctan(2*b/(a-c))
+        elif b != 0 and a > c:
+            phi = 0.5 * (np.pi + np.arctan(2*b/(a-c)))
+        elif a == c:
+            logger.warning("Ellipse is a perfect circle, the answer is degenerate")
+            phi = 0.0
+        else:
+            raise RuntimeError("Unreachable")
 
         return center, width, height, phi
 
