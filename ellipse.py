@@ -20,16 +20,25 @@ class LsqEllipse:
     Fitting of Ellipses'
     (**) Weisstein, Eric W. "Ellipse." From MathWorld--A Wolfram Web Resource.
     http://mathworld.wolfram.com/Ellipse.html
+    (***) https://mathworld.wolfram.com/InverseCotangent.html
 
     Examples
     --------
     >>> import numpy as np
-    >>> from sklearn.linear_model import LsqEllipse
+    >>> from ellipse import LsqEllipse
     >>> x = np.array([ 1.,  0., -1., -0.,  1.])
     >>> y = np.array([ 0. ,  0.5,  0. , -0.5, -0. ])
     >>> X = np.c_[x, y]
-    >>> reg = LsqEllipse().fit(X)
-    >>> reg.as_parameters()
+    >>> el = LsqEllipse().fit(X)
+    >>> center, width, height, phi = el.as_parameters()
+    >>> print(f"center: ({center[0]:.1f}, {center[1]:.1f})")
+    center: (-0.0, -0.0)
+    >>> print(f"width: {width:.1f}")
+    width: 1.0
+    >>> print(f"height: {height:.1f}")
+    height: 0.5
+    >>> print(f"phi: {phi:.1f}")
+    phi: -0.0
     """
     ALLOWED_FEATURES = 2
 
