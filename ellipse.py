@@ -58,6 +58,10 @@ class LsqEllipse:
 
         return X
 
+    def _assert_ellipse_found(self):
+        if self.coef_ is None:
+            raise ValueError("Must call .fit() before using .return_fit()")
+
     def fit(self, X):
         """Fit the data
 
@@ -118,7 +122,8 @@ class LsqEllipse:
         -------
         [a,b,c,d,f,g] corresponding to ax**2 + bxy + cy**2 + dx + ey + f from (*)
         """
-        return np.asarray(self.coef_).ravel()
+        self._assert_ellipse_found()
+        return tuple(c for c in self.coef_.ravel())
 
     def as_parameters(self):
         """Returns the definition of the fitted ellipse as localized parameters
@@ -190,8 +195,7 @@ class LsqEllipse:
         X : array, shape (n_points, 2)
             data values for the x-y data pairs
         """
-        if self.coef_ is None:
-            raise ValueError("Must call .fit() before using .return_fit()")
+        self._assert_ellipse_found()
 
         if n_points is None and t is None:
             raise AttributeError("A value for `n_points` or `t` must be ",
