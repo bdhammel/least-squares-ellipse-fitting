@@ -17,11 +17,17 @@ jobs:
             cp .pre-commit-config.yaml pre-commit-cache-key.txt
             python --version --version >> pre-commit-cache-key.txt
       - run:
+          name: doctests
+          command: |
+            . venv/bin/activate
+            python -m doctest ellipse.py
+      - run:
           name: run tests
           command: |
             . venv/bin/activate
             flake8 --exclude=venv* --statistics
             pytest -v --cov=ellipse test.py
+
 workflows:
   version: 2
   build_and_test:
