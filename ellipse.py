@@ -11,8 +11,8 @@ class LsqEllipse:
     ----------
     coef_ : array
         Estimated coefficients for the Least squares fit to the elliptical data
-        containing the values [a,b,c,d,f,g].T corresponding to
-        ax**2 + 2bxy + cy**2 + 2dx + 2fy + g
+        containing the values [a,b,c,d,f,g].T corresponding to Eqn 1 (*)
+        ax**2 + bxy + cy**2 + dx + ey + f
 
     References
     ----------
@@ -76,7 +76,7 @@ class LsqEllipse:
         x, y = X.T
 
         # Quadratic part of design matrix [eqn. 15] from (*)
-        D1 = np.vstack([x**2, x * y, y**2]).T
+        D1 = np.vstack([x**2, x*y, y**2]).T
         # Linear part of design matrix [eqn. 16] from (*)
         D2 = np.vstack([x, y, np.ones_like(x)]).T
 
@@ -96,18 +96,15 @@ class LsqEllipse:
         eigval, eigvec = np.linalg.eig(M)
 
         # Eigenvector must meet constraint 4ac - b^2 to be valid.
-        cond = (
-            4*np.multiply(eigvec[0, :], eigvec[2, :])
-            - np.power(eigvec[1, :], 2)
-        )
+        cond = 4*np.multiply(eigvec[0, :], eigvec[2, :]) - np.power(eigvec[1, :], 2)
         a1 = eigvec[:, np.nonzero(cond > 0)[0]]
 
         # |d f g> = -S3^(-1) * S2^(T)*|a b c> [eqn. 24]
         a2 = la.inv(-S3) @ S2.T @ a1
 
         # Eigenvectors |a b c d f g>
-        # list of the coefficients describing an ellipse [a,b,c,d,f,g]
-        # corresponding to ax**2 + 2bxy + cy**2 + 2dx + 2fy + g
+        # list of the coefficients describing an ellipse [a,b,c,d,e,f]
+        # corresponding to ax**2 + bxy + cy**2 + dx + ey + f from (*)
         self.coef_ = np.vstack([a1, a2])
 
         return self
@@ -119,7 +116,7 @@ class LsqEllipse:
 
         Returns
         -------
-        [a,b,c,d,f,g] corresponding to ax**2 + 2bxy + cy**2 + 2dx + 2fy + g
+        [a,b,c,d,f,g] corresponding to ax**2 + bxy + cy**2 + dx + ey + f from (*)
         """
         return np.asarray(self.coef_).ravel()
 
@@ -140,8 +137,11 @@ class LsqEllipse:
         """
 
         # Eigenvectors are the coefficients of an ellipse in general form
-        # a*x^2 + 2*b*x*y + c*y^2 + 2*d*x + 2*f*y + g = 0
-        # [eqn. 15) from (**) or (***)
+        # the division by 2 is required to account for a slight difference in
+        # the equations between (*) and (**)
+        # a*x^2 +   b*x*y + c*y^2 +   d*x +   e*y + f = 0  (*)  Eqn 1
+        # a*x^2 + 2*b*x*y + c*y^2 + 2*d*x + 2*f*y + g = 0  (**) Eqn 15
+        # We'll use (**) to follow their documentation
         a = self.coefficients[0]
         b = self.coefficients[1] / 2.
         c = self.coefficients[2]
@@ -202,11 +202,7 @@ class LsqEllipse:
 
         center, width, height, phi = self.as_parameters()
 
-        x = (center[0]
-             + width * np.cos(t) * np.cos(phi)
-             - height * np.sin(t) * np.sin(phi))
-        y = (center[1]
-             + width * np.cos(t) * np.sin(phi)
-             + height * np.sin(t) * np.cos(phi))
+        x = (center[0] + width * np.cos(t) * np.cos(phi) - height * np.sin(t) * np.sin(phi))
+        y = (center[1] + width * np.cos(t) * np.sin(phi) + height * np.sin(t) * np.cos(phi))
 
         return np.c_[x, y]
