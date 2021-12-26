@@ -11,7 +11,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="lsq-ellipse",
-    version="2.1.0-dev",
+    version="2.2.0-dev",
     description="Lease squares fitting of Ellipses",
     long_description=README,
     long_description_content_type="text/markdown",
