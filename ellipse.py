@@ -38,11 +38,11 @@ class LsqEllipse:
     >>> print(f"center: ({center[0]:.1f}, {center[1]:.1f})")
     center: (-0.0, -0.0)
     >>> print(f"width: {width:.1f}")
-    width: 1.0
+    width: 0.5
     >>> print(f"height: {height:.1f}")
-    height: 0.5
+    height: 1.0
     >>> print(f"phi: {phi:.1f}")
-    phi: 0.0
+    phi: 1.6
     """
     ALLOWED_FEATURES = 2
 
@@ -166,19 +166,19 @@ class LsqEllipse:
         numerator = 2 * (a*f**2 + c*d**2 + g*b**2 - 2*b*d*f - a*c*g)
         denominator1 = (b**2 - a*c) * ( np.sqrt((a-c)**2+4*b**2) - (c+a))  # noqa: E201
         denominator2 = (b**2 - a*c) * (-np.sqrt((a-c)**2+4*b**2) - (c+a))
-        width = np.sqrt(numerator / denominator1)
-        height = np.sqrt(numerator / denominator2)
+        height = np.sqrt(numerator / denominator1)
+        width = np.sqrt(numerator / denominator2)
 
         # Angle of counterclockwise rotation of major-axis of ellipse to x-axis
         # [eqn. 23] from (**)
         # w/ trig identity eqn 9 form (***)
-        if b == 0 and a < c:
+        if b == 0 and a > c:
             phi = 0.0
-        elif b == 0 and a > c:
+        elif b == 0 and a < c:
             phi = np.pi/2
-        elif b != 0 and a < c:
-            phi = 0.5 * np.arctan(2*b/(a-c))
         elif b != 0 and a > c:
+            phi = 0.5 * np.arctan(2*b/(a-c))
+        elif b != 0 and a < c:
             phi = 0.5 * (np.pi + np.arctan(2*b/(a-c)))
         elif a == c:
             logger.warning("Ellipse is a perfect circle, the answer is degenerate")
