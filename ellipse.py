@@ -5,7 +5,7 @@ import numpy.linalg as la
 
 logger = logging.getLogger(__name__)
 
-__version__ = '2.2.0-dev'
+__version__ = '2.2.1'
 
 
 class LsqEllipse:
