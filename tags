@@ -1,0 +1,48 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ALLOWED_FEATURES	ellipse.py	/^    ALLOWED_FEATURES = 2$/;"	v	class:LsqEllipse
+HERE	setup.py	/^HERE = pathlib.Path(__file__).parent$/;"	v
+LsqEllipse	ellipse.py	/^class LsqEllipse:$/;"	c
+README	setup.py	/^README = (HERE \/ "README.md").read_text()$/;"	v
+X	example.py	/^    X = np.array(list(zip(X1, X2)))$/;"	v
+__init__	ellipse.py	/^    def __init__(self):$/;"	m	class:LsqEllipse
+__version__	ellipse.py	/^__version__ = '2.2.0-dev'$/;"	v
+_assert_ellipse_found	ellipse.py	/^    def _assert_ellipse_found(self):$/;"	m	class:LsqEllipse
+_check_data	ellipse.py	/^    def _check_data(self, X):$/;"	m	class:LsqEllipse
+_normalize_result	test.py	/^def _normalize_result(major, minor, phi):$/;"	f
+args	example.py	/^    args = get_args()$/;"	v
+as_parameters	ellipse.py	/^    def as_parameters(self):$/;"	m	class:LsqEllipse
+author	setup.py	/^    author="Ben Hammel",$/;"	v
+author_email	setup.py	/^    author_email="bdhammel@gmail.com",$/;"	v
+ax	example.py	/^    ax = plt.subplot()$/;"	v
+coefficients	ellipse.py	/^    def coefficients(self):$/;"	m	class:LsqEllipse
+description	setup.py	/^    description="Lease squares fitting of Ellipses",$/;"	v
+ellipse	example.py	/^    ellipse = Ellipse($/;"	v
+fig	example.py	/^    fig = plt.figure(figsize=(6, 6))$/;"	v
+fit	ellipse.py	/^    def fit(self, X):$/;"	m	class:LsqEllipse
+get_args	example.py	/^def get_args():$/;"	f
+install_requires	setup.py	/^    install_requires=["numpy"],$/;"	v
+license	setup.py	/^    license="MIT",$/;"	v
+logger	ellipse.py	/^logger = logging.getLogger(__name__)$/;"	v
+long_description	setup.py	/^    long_description=README,$/;"	v
+long_description_content_type	setup.py	/^    long_description_content_type="text\/markdown",$/;"	v
+make_dataset	test.py	/^def make_dataset(center, width, height, phi, n_points):$/;"	f
+make_test_ellipse	example.py	/^def make_test_ellipse(center, width, height, phi, noise):$/;"	f
+name	setup.py	/^    name="lsq-ellipse",$/;"	v
+py_modules	setup.py	/^    py_modules=['ellipse'],$/;"	v
+reg	example.py	/^    reg = LsqEllipse().fit(X)$/;"	v
+report_results	example.py	/^def report_results(args, center, width, height, phi):$/;"	f
+return_fit	ellipse.py	/^    def return_fit(self, n_points=None, t=None):$/;"	m	class:LsqEllipse
+test_cannot_get_coef_without_fitting	test.py	/^def test_cannot_get_coef_without_fitting():$/;"	f
+test_ellipse_fit	test.py	/^def test_ellipse_fit(center, width, height, phi):$/;"	f
+test_if_no_ellipse_found	test.py	/^def test_if_no_ellipse_found():$/;"	f
+test_if_perfect_circle	test.py	/^def test_if_perfect_circle():$/;"	f
+test_less_than_minimum_data_points_raises_err	test.py	/^def test_less_than_minimum_data_points_raises_err():$/;"	f
+test_minimum_data_points	test.py	/^def test_minimum_data_points():$/;"	f
+test_return_fit_returns_correct_ellipse	test.py	/^def test_return_fit_returns_correct_ellipse(n_points):$/;"	f
+url	setup.py	/^    url="https:\/\/github.com\/bdhammel\/least-squares-ellipse-fitting",$/;"	v
+version	setup.py	/^    version="2.2.0-dev",$/;"	v
