@@ -84,9 +84,10 @@ class LsqEllipse:
         x, y = X.T
 
         # Quadratic part of design matrix [eqn. 15] from (*)
-        D1 = np.vstack([x**2, x*y, y**2]).T
+        # convert dtype from 'int32' to 'int64' for window systems -> C long = 'int32'
+        D1 = np.vstack([x**2, x*y, y**2]).T.astype('int64')
         # Linear part of design matrix [eqn. 16] from (*)
-        D2 = np.vstack([x, y, np.ones_like(x)]).T
+        D2 = np.vstack([x, y, np.ones_like(x)]).T.astype('int64')
 
         # Forming scatter matrix [eqn. 17] from (*)
         S1 = D1.T @ D1
