@@ -15,7 +15,7 @@ class LsqEllipse:
     ----------
     coef_ : array
         Estimated coefficients for the Least squares fit to the elliptical data
-        containing the values [a,b,c,d,f,g].T corresponding to Eqn 1 (*)
+        containing the values [a,b,c,d,e,f].T corresponding to Eqn 1 (*)
         ax**2 + bxy + cy**2 + dx + ey + f
 
     References
@@ -124,7 +124,7 @@ class LsqEllipse:
 
         Returns
         -------
-        [a,b,c,d,f,g] corresponding to ax**2 + bxy + cy**2 + dx + ey + f from (*)
+        [a,b,c,d,e,f] corresponding to ax**2 + bxy + cy**2 + dx + ey + f from (*)
         """
         self._assert_ellipse_found()
         return tuple(c for c in self.coef_.ravel())
